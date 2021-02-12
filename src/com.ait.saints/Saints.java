@@ -13,7 +13,7 @@ public class Saints {
 
 	 private String city;
 	    
-	 private String year;
+	 private int century;
 	    
 	 private String picture;
 
@@ -51,12 +51,12 @@ public class Saints {
 		this.city = city;
 	}
 
-	public String getYear() {
-		return year;
+	public int getCentury() {
+		return century;
 	}
 
-	public void setYear(String year) {
-		this.year = year;
+	public void setCentury(int century) {
+		this.century = century;
 	}
 
 	public String getPicture() {
@@ -74,6 +74,7 @@ public class Saints {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 
 }
 
