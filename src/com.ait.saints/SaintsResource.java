@@ -14,10 +14,16 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.ait.validation.ErrorMessages;
+import com.ait.validation.SaintValidationException;
+import com.ait.validation.SaintsValidator;
+import com.ait.validation.*;
+
 
 @Path("/saints")
 public class SaintsResource {
 	
+	SaintsValidator saintsValidator = new SaintsValidator();
 	SaintsDAO saintsDAO = new SaintsDAO();
 	
 	@GET
@@ -57,8 +63,18 @@ public class SaintsResource {
 	@Produces({MediaType.APPLICATION_JSON})
 	//http://localhost:8080/Saints/rest/saints
 	public Response create(Saints saint) {
-		Saints saintObj = saintsDAO.create(saint);
-		return Response.status(201).entity(saintObj).build();
+		Response response;
+		try {
+			List<Saints> saints = SaintsDAO.findAll();
+			saintsValidator.checkEmptyFields(saint);
+			SaintsDAO.create(saint);
+			response = Response.status(200).entity(saint).build();
+		} catch (SaintValidationException e) {
+			ErrorMessage errorMessage = new ErrorMessage(e.getMessage());
+			response = Response.status(403).entity(errorMessage).build();
+		}
+		
+		return response;
 	}
 	
 	@PUT @Path("{id}")
