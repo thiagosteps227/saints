@@ -25,6 +25,7 @@ public class SaintsResource {
 	
 	SaintsValidator saintsValidator = new SaintsValidator();
 	SaintsDAO saintsDAO = new SaintsDAO();
+	CheckSaintExists checkSaintExists = new CheckSaintExists();
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
@@ -67,6 +68,7 @@ public class SaintsResource {
 		try {
 			List<Saints> saints = SaintsDAO.findAll();
 			saintsValidator.checkEmptyFields(saint);
+			checkSaintExists.checkSaintExists(saint, saints);
 			SaintsDAO.create(saint);
 			response = Response.status(200).entity(saint).build();
 		} catch (SaintValidationException e) {
