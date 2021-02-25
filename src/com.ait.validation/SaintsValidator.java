@@ -1,5 +1,7 @@
 package com.ait.validation;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.ait.saints.Saints;
 
 public class SaintsValidator {
@@ -8,6 +10,8 @@ public class SaintsValidator {
 	public void validateSaint(Saints saint) throws SaintValidationException {
 		this.saint = saint;
 		checkEmptyFields(saint);
+		checkInvalidCentury(saint);
+
 	}
 
 	
@@ -18,4 +22,12 @@ public class SaintsValidator {
 			throw new SaintValidationException(ErrorMessages.EMPTY_FIELDS.getMsg());
 		}
 	}
+	
+	public void checkInvalidCentury(Saints saint) throws SaintValidationException {
+		int centuryCreated = saint.getCentury();
+		if (centuryCreated < 0 || centuryCreated > 21) {
+			throw new SaintValidationException(ErrorMessages.INVALID_CENTURY.getMsg());
+		}
+	}
+	
 }
