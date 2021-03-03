@@ -49,6 +49,12 @@ class IntegrationTests {
 		assertEquals(2, list.size());
 		Saints saint= list.get(0);
 		assertEquals("country", saint.getCountry());
+		saint=list.get(1);
+		assertEquals("test2",saint.getName());
+		assertEquals("country2", saint.getCountry());
+		assertEquals("city2", saint.getCity());
+		assertEquals("saint2.jpg", saint.getPicture());
+		assertEquals("saint created for test2", saint.getDescription());
 
 	}
 	
