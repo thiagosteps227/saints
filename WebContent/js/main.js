@@ -1,5 +1,5 @@
 // The root URL for the RESTful services
-var rootURL = "http://localhost:8080/WineCellar/rest/wines";
+var rootURL = "http://localhost:8080/Saints/rest/saints";
 
 
 var findAll= function () {
@@ -16,9 +16,9 @@ var findAll= function () {
 var renderList = function (list) {
 	//list=data.wine;
         console.log("response");
-	$.each(list, function(index, wine) {
-		$('#table_body').append('<tr><td>'+wine.name+'</td><td>'+
-				wine.grapes+'</td><td>'+wine.country+'</td><td>'+wine.year+
+	$.each(list, function(index, saint) {
+		$('#table_body').append('<tr><td>'+saint.name+'</td><td>'+
+				saint.country+'</td><td>'+saint.city+'</td><td>'+saint.century+
 				'</td></tr>');
 	});
         $('#table_id').DataTable();
