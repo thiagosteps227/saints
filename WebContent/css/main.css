@@ -4,7 +4,10 @@
 
 body{margin:20px;}
 
-#products {
+h1{
+	color: #008000;
+}
+#saints {
 	width: 900px;
 	margin: 0 auto; 
 	padding: 20px;
@@ -14,10 +17,15 @@ body{margin:20px;}
 
 span{
 	font-size:60px;
-	color:red;
+	color:#eeee00;
 }
-li{padding-right:20px;
-	font-size:200%;}
+li{ padding-right:20px;
+	font-size:150%;
+	
+}
+a{
+	color: purple;
+}
 	
 input{
   border:1px solid #ccc;
