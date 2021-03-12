@@ -1,7 +1,6 @@
 // The root URL for the RESTful services
 var rootURL = "http://localhost:8080/Saints/rest/saints";
 
-
 var findAll= function () {
 	console.log('findAll');
 	$.ajax({
@@ -14,7 +13,6 @@ var findAll= function () {
 
 
 var renderList = function (list) {
-	//list=data.wine;
         console.log("response");
 	$.each(list, function(index, saint) {
 		$('#table_body').append('<tr><td>'+saint.name+'</td><td>'+
@@ -23,6 +21,16 @@ var renderList = function (list) {
 	});
         $('#table_id').DataTable();
 };
+
+var showGrid = function(list){
+	$.each(list, function(index, saint){
+		$('<div>', {class: 'row row-cols-auto'}).append(
+		        $('<div>', {class: 'col', title: 'Saints'})
+		            .append('<h3>' + saint.name + '</h3>')
+		            .append('<p>' + saint.description + '<p>')
+		    ).appendTo(saint);
+	})
+}
 
 var openModal = function(){
 	$('#name').val("BLOCK NINE");
@@ -38,9 +46,10 @@ $(document).ready(function(){
 	$(document).on("click", '#modalBtn', function(){openModal();});
 	findAll();
 	
-       // $('#tab a').click(function (e) {
-       //     e.preventDefault();
-        //    $(this).tab('show');
-       // });
+       $('.nav-tabs a[href="#home"]').click(function (e) {
+            e.preventDefault();
+            alert("tab home");
+            $(this).tab('show');
+        });
 });
 
