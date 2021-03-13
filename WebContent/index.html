@@ -45,8 +45,8 @@
             </table>
         </div>
         <div class="tab-pane" id="other">
-            <h2>Modal Example</h2>
-            <button type="button" id="modalBtn" class="btn btn-primary">Recommended Wine</button>
+            <h2>Saints</h2>
+            <button type="button" id="modalBtn" class="btn btn-primary">Saints Details</button>
 
 <!-- The Modal -->
 <div class="modal" id="myModal">
@@ -55,7 +55,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Wine of the week</h4>
+        <h4 class="modal-title">Saint to be updated</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -64,25 +64,29 @@
        <form id="wineForm">
 	
 			<div class="mainArea">
+			
+				<label>ID:</label>
+				<input type="text" id="saintId" name="saintId" required>
 
 				<label>Name:</label>
 				<input type="text" id="name" name="name" required>
 	
-				<label>Grapes:</label>
-				<input type="text" id="grapes" name="grapes"/>
-				
 				<label>Country:</label>
 				<input type="text" id="country" name="country"/>
 				
-				<label>Region:</label>
-				<input type="text" id="region" name="region"/>
+				<label>City:</label>
+				<input type="text" id="city" name="city"/>
 				
-				<label>Year:</label>
-				<input type="text" id="year" name="year"/>
+				<label>Century:</label>
+				<input type="text" id="century" name="century"/>
+				
+				<label>Description:</label>
+				<input type="text" id="description" name="description"/>
       		</div>
 
       			<!-- Modal footer -->
 		     <div class="modal-footer">
+		     	<button type="button" class="btn btn-danger" id="findByIdButton">Find by ID</button>
 		        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 		     </div>
 
