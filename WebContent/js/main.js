@@ -1,6 +1,7 @@
 // The root URL for the RESTful services
 var rootURL = "http://localhost:8080/Saints/rest/saints";
 
+var currentSaint;
 var findAll= function () {
 	console.log('findAll');
 	$.ajax({
@@ -11,6 +12,20 @@ var findAll= function () {
 	});
 };
 
+var findById= function() {
+	console.log('findById: ' + id);
+	$.ajax({
+		type: 'GET',
+		url: rootURL + '/' + $('#saintId').val(),
+		dataType: "json",
+		success: function(data){
+			//$('#updateCustomer').show();
+			//console.log('findById success: ' + data.name);
+			currentSaint = data;
+			openModal(currentSaint);
+		}
+	});
+};
 
 var renderList = function (list) {
         console.log("response");
@@ -32,22 +47,34 @@ var showGrid = function(list){
 	})
 }
 
-var openModal = function(){
-	$('#name').val("BLOCK NINE");
-	$('#grapes').val("Merlot");
-	$('#country').val("Ireland");
-	$('#region').val("Athlone");
-	$('#year').val("2021");
-	$('#myModal').modal('show');
+var openModal = function(saint){
+	$('#name').val(saint.name);
+	$('#country').val(saint.country);
+	$('#city').val(saint.city);
+	$('#century').val(saint.century);
+	$('#description').val(saint.description);
+	
 }
 
 //Retrieve the wine list when the DOM is ready
 $(document).ready(function(){
-	$(document).on("click", '#modalBtn', function(){openModal();});
+	//$(document).on("click", '#modalBtn', function(){findById();});
 	findAll();
-	
+	  $('#modalBtn').click(function (e) {
+          e.preventDefault();
+          $('#myModal').modal('show');
+      });
+	  $('#findByIdButton').click(function(e){
+		  e.preventDefault();
+		  alert("button");
+		  findById();
+		});
+    
+	  
        $('.nav-tabs a[href="#home"]').click(function (e) {
             e.preventDefault();
+            var list = findAll();
+            showGrid(list);
             alert("tab home");
             $(this).tab('show');
         });
