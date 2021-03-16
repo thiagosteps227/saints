@@ -27,16 +27,82 @@ var findById= function(id) {
 	});
 };
 
+//method to add a saint when the button add a saint is pressed
+var addNewSaint = function(){
+	$.ajax({type: 'POST', 
+		contentType: 'application/json',
+		url: rootURL, 
+		datatype: "json", 
+		data: formToJSON(),
+		success: function(data, textStatus, jqXHR){
+			alert("New Saint added");
+			cleanModalForm();
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			var errorString = JSON.stringify(jqXHR.responseText)
+			if( jqXHR.status === 403){
+				alert(errorString);
+			}
+			
+		}
+	});
+};
+
+//method to update a saint
+var updateSaint= function (id) {
+	$.ajax({
+		type: 'PUT',
+		contentType: 'application/json',
+		url: rootURL  + '/' + id,
+		dataType: "json",
+		data: formToJSON(),
+		success: function(data, textStatus, jqXHR){
+			alert('Saint updated successfully');
+            currentSaint = data;
+			openModal(currentSaint);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('Updating Saint error: ' + textStatus);
+		}
+	});
+};
+
+//method to delete a saint using the delete button in the table
+var deleteSaint=function(id) {
+	console.log('deleteSaint');
+	$.ajax({
+		type: 'DELETE',
+		url: rootURL + '/' + id,
+		success: function(data, textStatus, jqXHR){
+			alert('saint deleted successfully');
+            findAll();
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('deleteSaint error');
+		}
+	});
+};
+
 var renderList = function (list) {
         console.log("response");
         $('#table_body tr').remove();
 	$.each(list, function(index, saint) {
-		$('#table_body').append('<tr><td>'+saint.name+'</td><td>'+
-				saint.country+'</td><td>'+saint.city+'</td><td>'+saint.century+
-				'</td></tr>');
+		$('#table_body').append("<tr><td>"+saint.name+"</td><td>"+saint.country+"</td><td>"+saint.city+"</td><td>"+saint.century+
+				"</td><td><input type='button' id='" + saint.id + "' onclick='deleteSaint(" + saint.id + ")' value='Delete'></td></tr>");
 	});
         $('#table_id').DataTable();
 };
+
+var formToJSON = function (){
+	return JSON.stringify({
+			"name" : $('#name').val(),
+			"country" : $('#country').val(),
+			"city" : $('#city').val(),
+			"century" : $('#century').val(),
+			"description" : $('#description').val(),
+			"picture": $('#picture').val(),
+	});
+}
 
 var showGrid = function(list){
 	$.each(list, function(index, saint){
@@ -47,7 +113,17 @@ var showGrid = function(list){
 		    ).appendTo(saint);
 	})
 }
-
+//method to clean the form after an operation
+var cleanModalForm= function(){
+	$('#saintId').val("");
+	$('#name').val("");
+	$('#country').val("");
+	$('#city').val("");
+	$('#century').val("");
+	$('#picture').val("");
+	$('#description').val("");
+	
+}
 var openModal = function(saints){
 	$('#saintId').val(saints.id);
 	$('#name').val(saints.name);
@@ -58,9 +134,8 @@ var openModal = function(saints){
 	
 }
 
-//Retrieve the wine list when the DOM is ready
+//Retrieve the saints list when the DOM is ready
 $(document).ready(function(){
-	//$(document).on("click", '#modalBtn', function(){findById();});
 	
 	 //show grid with saints info
     $('.nav-tabs a[href="#home"]').click(function (e) {
@@ -82,10 +157,21 @@ $(document).ready(function(){
           e.preventDefault();
           $('#myModal').modal('show');
       });
+	 //findind a saint with id
 	 $('#wineForm').on("click",'#findByIdButton', function(e){
 		 e.preventDefault();
 		var id = $('#saintId').val();
 		 findById(id);
 	 })
-	
+	 //add new Saint in the modal
+	  $('#wineForm').on("click",'#addNewSaintBtn', function(e){
+		 e.preventDefault();
+		 addNewSaint();
+	 })
+	 //update a saint
+	  $('#wineForm').on("click",'#updateSaintBtn', function(e){
+		 e.preventDefault();
+		 var id = $('#saintId').val();
+		 updateSaint(id);
+	 })
 });
