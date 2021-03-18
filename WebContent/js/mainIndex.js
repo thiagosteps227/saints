@@ -12,6 +12,16 @@ var findAll= function () {
 	});
 };
 
+var findAllGrid= function () {
+	console.log('findAll');
+	$.ajax({
+		type: 'GET',
+		url: rootURL,
+		dataType: "json", // data type of response
+		success: renderGrid
+	});
+};
+
 var findById= function(id) {
 	console.log('findById: ' + id);
 	$.ajax({
@@ -100,18 +110,16 @@ var formToJSON = function (){
 			"city" : $('#city').val(),
 			"century" : $('#century').val(),
 			"description" : $('#description').val(),
-			"picture": $('#picture').val(),
+			"picture": currentSaint.picture,
 	});
 }
 
-var showGrid = function(list){
+var renderGrid = function(list){
+	 $('#saintsGrid div ').remove();
 	$.each(list, function(index, saint){
-		$('<div>', {class: 'row row-cols-auto'}).append(
-		        $('<div>', {class: 'col', title: 'Saints'})
-		            .append('<h3>' + saint.name + '</h3>')
-		            .append('<p>' + saint.description + '<p>')
-		    ).appendTo(saint);
-	})
+		$('#saintsGrid').append("<div class='col'><img src=images/"+saint.picture+"><h4>"+saint.name+"</h4><p>"+saint.description+"</p></div>");
+		        			
+	});
 }
 //method to clean the form after an operation
 var cleanModalForm= function(){
@@ -136,13 +144,12 @@ var openModal = function(saints){
 
 //Retrieve the saints list when the DOM is ready
 $(document).ready(function(){
-	
 	 //show grid with saints info
     $('.nav-tabs a[href="#home"]').click(function (e) {
          e.preventDefault();
-         var list = findAll();
-         showGrid(list);
-         alert("tab home");
+         //var list = findAll();
+         findAllGrid();
+         //alert("tab home");
          $(this).tab('show');
      });
 	//show datable with saints info
