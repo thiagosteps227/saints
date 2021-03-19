@@ -15,9 +15,11 @@ h1{
 	box-shadow: 0 9px 18px 9px;
 }
 
+
 span{
 	font-size:60px;
 	color:#eeee00;
+	margin: 5px;
 }
 li{ padding-right:20px;
 	font-size:150%;
@@ -38,6 +40,41 @@ input{
   margin-top:5px;
   width:280px;
 }
+#updateSaintBtn{
+	margin: 5px;
+}
+.form-control {
+	overflow-wrap: break-word
+}
+#description{
+	height: 200px;
+}
+.container .col {
+	background-color: #ffffbf;
+	padding: 10px;
+	margin:5px;
+	border-radius: 25px;
+	float: center;
+}
+.container img{
+	height: 256px;
+	width: 197px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+.container h4{
+	color: purple;
+	margin: 5px;
+	text-align: center;
+}
+.container p {
+	color: #808080;
+	text-align: justify;
+	margin: auto;
+}
+
 
 label {
 	display:block;
