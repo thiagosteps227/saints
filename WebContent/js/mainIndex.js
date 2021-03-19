@@ -43,10 +43,10 @@ var addNewSaint = function(){
 		contentType: 'application/json',
 		url: rootURL, 
 		datatype: "json", 
-		data: formToJSON(),
+		data: createFormToJSON(),
 		success: function(data, textStatus, jqXHR){
 			alert("New Saint added");
-			cleanModalForm();
+			cleanCreateModalForm();
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			var errorString = JSON.stringify(jqXHR.responseText)
@@ -98,38 +98,54 @@ var renderList = function (list) {
         $('#table_body tr').remove();
 	$.each(list, function(index, saint) {
 		$('#table_body').append("<tr><td>"+saint.name+"</td><td>"+saint.country+"</td><td>"+saint.city+"</td><td>"+saint.century+
-				"</td><td><input type='button' id='" + saint.id + "' onclick='deleteSaint(" + saint.id + ")' value='Delete'></td></tr>");
+				"</td><td><input class='btn btn-danger' type='button' id='" + saint.id + "' onclick='deleteSaint(" + saint.id + ")' value='Delete'>" +
+						"<input class='btn btn-outline-success' type='button' name='"+saint.id+"'id='editBtn' value='Edit'></td></tr>");
 	});
         $('#table_id').DataTable();
 };
 
 var formToJSON = function (){
+	var id = $('#saintId').val();
 	return JSON.stringify({
+		"id": id == "" ? null : id, 
 			"name" : $('#name').val(),
 			"country" : $('#country').val(),
 			"city" : $('#city').val(),
 			"century" : $('#century').val(),
 			"description" : $('#description').val(),
-			"picture": currentSaint.picture,
+			"picture": $('#picture').val(),
+	});
+}
+
+var createFormToJSON = function (){
+	var id = $('#createsaintId').val();
+	return JSON.stringify({
+		"id": id == "" ? null : id, 
+			"name" : $('#createname').val(),
+			"country" : $('#createcountry').val(),
+			"city" : $('#createcity').val(),
+			"century" : $('#createcentury').val(),
+			"description" : $('#createdescription').val(),
+			"picture": $('#createpicture').val(),
 	});
 }
 
 var renderGrid = function(list){
 	 $('#saintsGrid div ').remove();
 	$.each(list, function(index, saint){
-		$('#saintsGrid').append("<div class='col'><img src=images/"+saint.picture+"><h4>"+saint.name+"</h4><p>"+saint.description+"</p></div>");
+		$('#saintsGrid').append("<div class='col'><img src=images/"+saint.picture+"><h4>"+saint.name+"</h4><p class='text-break'>"+saint.description+"</p></div>");
 		        			
 	});
 }
 //method to clean the form after an operation
-var cleanModalForm= function(){
+var cleanCreateModalForm= function(){
 	$('#saintId').val("");
-	$('#name').val("");
-	$('#country').val("");
-	$('#city').val("");
-	$('#century').val("");
-	$('#picture').val("");
-	$('#description').val("");
+	$('#createname').val("");
+	$('#createcountry').val("");
+	$('#createcity').val("");
+	$('#createcentury').val("");
+	$('#createpicture').val("");
+	$('#createdescription').val("");
 	
 }
 var openModal = function(saints){
@@ -138,18 +154,17 @@ var openModal = function(saints){
 	$('#country').val(saints.country);
 	$('#city').val(saints.city);
 	$('#century').val(saints.century);
+	$('#picture').val(saints.picture);
 	$('#description').val(saints.description);
 	
 }
 
 //Retrieve the saints list when the DOM is ready
 $(document).ready(function(){
-	 //show grid with saints info
+	  findAllGrid();
     $('.nav-tabs a[href="#home"]').click(function (e) {
          e.preventDefault();
-         //var list = findAll();
          findAllGrid();
-         //alert("tab home");
          $(this).tab('show');
      });
 	//show datable with saints info
@@ -158,20 +173,26 @@ $(document).ready(function(){
          findAll();
          $(this).tab('show');
      });
-	 
+	 //show the modal to edit a saint
+	 $('#table_id').on("click", '#editBtn', function (e) {
+         e.preventDefault();
+         $('#editSaintModal').modal('show');
+         var id = event.target.name;
+         findById(id);
+     });
 	//show saints details in the modal
 	 $('#modalBtn').click(function (e) {
           e.preventDefault();
           $('#myModal').modal('show');
       });
-	 //findind a saint with id
+	 //finding a saint with id
 	 $('#wineForm').on("click",'#findByIdButton', function(e){
 		 e.preventDefault();
 		var id = $('#saintId').val();
 		 findById(id);
 	 })
 	 //add new Saint in the modal
-	  $('#wineForm').on("click",'#addNewSaintBtn', function(e){
+	  $('#createForm').on("click",'#addNewSaintBtn', function(e){
 		 e.preventDefault();
 		 addNewSaint();
 	 })
