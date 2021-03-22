@@ -69,7 +69,7 @@ var updateSaint= function (id) {
 		success: function(data, textStatus, jqXHR){
 			alert('Saint updated successfully');
             currentSaint = data;
-			openModal(currentSaint);
+			openModal(currentSaint);	
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			alert('Updating Saint error: ' + textStatus);
@@ -98,7 +98,7 @@ var renderList = function (list) {
         $('#table_body tr').remove();
 	$.each(list, function(index, saint) {
 		$('#table_body').append("<tr><td>"+saint.name+"</td><td>"+saint.country+"</td><td>"+saint.city+"</td><td>"+saint.century+
-				"</td><td><input class='btn btn-danger' type='button' id='" + saint.id + "' onclick='deleteSaint(" + saint.id + ")' value='Delete'>" +
+				"</td><td><input class='btn btn-danger' type='button' id='" + saint.id + "' onclick='deleteSaint(" + saint.id + ")' value='Delete'>" +"       "+
 						"<input class='btn btn-outline-success' type='button' name='"+saint.id+"'id='editBtn' value='Edit'></td></tr>");
 	});
         $('#table_id').DataTable();
@@ -185,21 +185,22 @@ $(document).ready(function(){
           e.preventDefault();
           $('#myModal').modal('show');
       });
-	 //finding a saint with id
-	 $('#wineForm').on("click",'#findByIdButton', function(e){
-		 e.preventDefault();
-		var id = $('#saintId').val();
-		 findById(id);
-	 })
+	
 	 //add new Saint in the modal
 	  $('#createForm').on("click",'#addNewSaintBtn', function(e){
 		 e.preventDefault();
 		 addNewSaint();
 	 })
+	 $('#createForm').on("click",'#createdescription', function(e){
+		 $('#createChars').text("Max 250 characters allowed");
+	 })
 	 //update a saint
-	  $('#wineForm').on("click",'#updateSaintBtn', function(e){
+	  $('#editTableForm').on("click",'#updateSaintBtn', function(e){
 		 e.preventDefault();
 		 var id = $('#saintId').val();
 		 updateSaint(id);
+	 })
+	  $('#editTableForm').on("click",'#description', function(e){
+		 $('#descriptionChars').text("Max 250 characters allowed");
 	 })
 });
