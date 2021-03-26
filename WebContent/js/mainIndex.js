@@ -158,6 +158,30 @@ var openModal = function(saints){
 	$('#description').val(saints.description);
 	
 }
+//validate the modal saint creator form 
+var validateForm = function() {
+	
+	  var formInvalid = false;
+	  $('#createForm input').each(function() {
+	    if ($(this).val() === '') {
+	      formInvalid = true;
+	    }
+	  });
+
+	  return formInvalid;
+}
+// to validate the edit table modal when updating a saint
+var validateUpdateForm = function() {
+	
+	  var formInvalid = false;
+	  $('#editTableForm input').each(function() {
+	    if ($(this).val() === '') {
+	      formInvalid = true;
+	    }
+	  });
+
+	  return formInvalid;
+}
 
 //Retrieve the saints list when the DOM is ready
 $(document).ready(function(){
@@ -189,7 +213,12 @@ $(document).ready(function(){
 	 //add new Saint in the modal
 	  $('#createForm').on("click",'#addNewSaintBtn', function(e){
 		 e.preventDefault();
-		 addNewSaint();
+		 if(validateForm()=== true){
+				alert('One or Two fields are empty. Please fill up all fields');
+		} else{
+			addNewSaint();
+		}
+		 
 	 })
 	 $('#createForm').on("click",'#createdescription', function(e){
 		 $('#createChars').text("Max 250 characters allowed");
@@ -198,8 +227,13 @@ $(document).ready(function(){
 	  $('#editTableForm').on("click",'#updateSaintBtn', function(e){
 		 e.preventDefault();
 		 var id = $('#saintId').val();
-		 updateSaint(id);
-	 })
+		 
+			 if(validateUpdateForm ()=== true){
+				 alert('One or Two fields are empty. Please fill up all fields');
+			 } else{
+				 updateSaint(id);
+			 }
+	 });
 	  $('#editTableForm').on("click",'#description', function(e){
 		 $('#descriptionChars').text("Max 250 characters allowed");
 	 })
