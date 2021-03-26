@@ -7,7 +7,7 @@ var findAll= function () {
 	$.ajax({
 		type: 'GET',
 		url: rootURL,
-		dataType: "json", // data type of response
+		dataType: "json", 
 		success: renderList
 	});
 };
@@ -17,7 +17,7 @@ var findAllGrid= function () {
 	$.ajax({
 		type: 'GET',
 		url: rootURL,
-		dataType: "json", // data type of response
+		dataType: "json", 
 		success: renderGrid
 	});
 };
@@ -93,6 +93,7 @@ var deleteSaint=function(id) {
 	});
 };
 
+//creating the saint's datatable
 var renderList = function (list) {
         console.log("response");
         $('#table_body tr').remove();
@@ -130,6 +131,7 @@ var createFormToJSON = function (){
 	});
 }
 
+//creating the saints GRID
 var renderGrid = function(list){
 	 $('#saintsGrid div ').remove();
 	$.each(list, function(index, saint){
@@ -137,6 +139,7 @@ var renderGrid = function(list){
 		        			
 	});
 }
+
 //method to clean the form after an operation
 var cleanCreateModalForm= function(){
 	$('#saintId').val("");
@@ -148,6 +151,7 @@ var cleanCreateModalForm= function(){
 	$('#createdescription').val("");
 	
 }
+
 var openModal = function(saints){
 	$('#saintId').val(saints.id);
 	$('#name').val(saints.name);
@@ -158,9 +162,9 @@ var openModal = function(saints){
 	$('#description').val(saints.description);
 	
 }
+
 //validate the modal saint creator form 
 var validateForm = function() {
-	
 	  var formInvalid = false;
 	  $('#createForm input').each(function() {
 	    if ($(this).val() === '') {
@@ -170,16 +174,15 @@ var validateForm = function() {
 
 	  return formInvalid;
 }
+
 // to validate the edit table modal when updating a saint
 var validateUpdateForm = function() {
-	
 	  var formInvalid = false;
 	  $('#editTableForm input').each(function() {
 	    if ($(this).val() === '') {
 	      formInvalid = true;
 	    }
 	  });
-
 	  return formInvalid;
 }
 
@@ -191,12 +194,14 @@ $(document).ready(function(){
          findAllGrid();
          $(this).tab('show');
      });
+    
 	//show datable with saints info
 	 $('.nav-tabs a[href="#saints"]').click(function (e) {
          e.preventDefault();
          findAll();
          $(this).tab('show');
      });
+	 
 	 //show the modal to edit a saint
 	 $('#table_id').on("click", '#editBtn', function (e) {
          e.preventDefault();
@@ -204,6 +209,7 @@ $(document).ready(function(){
          var id = event.target.name;
          findById(id);
      });
+	 
 	//show saints details in the modal
 	 $('#modalBtn').click(function (e) {
           e.preventDefault();
@@ -213,27 +219,33 @@ $(document).ready(function(){
 	 //add new Saint in the modal
 	  $('#createForm').on("click",'#addNewSaintBtn', function(e){
 		 e.preventDefault();
-		 if(validateForm()=== true){
-				alert('One or Two fields are empty. Please fill up all fields');
-		} else{
-			addNewSaint();
-		}
-		 
+			 if(validateForm()=== true){
+					alert('One or Two fields are empty. Please fill up all fields');
+			} else if (isNaN($('#createcentury').val())) {
+				alert("Only numbers allowed in century field");
+			}
+			 else {
+				addNewSaint();
+			} 
 	 })
+	 
 	 $('#createForm').on("click",'#createdescription', function(e){
 		 $('#createChars').text("Max 250 characters allowed");
 	 })
+	 
 	 //update a saint
 	  $('#editTableForm').on("click",'#updateSaintBtn', function(e){
 		 e.preventDefault();
 		 var id = $('#saintId').val();
-		 
-			 if(validateUpdateForm ()=== true){
+			 if(validateUpdateForm () === true){
 				 alert('One or Two fields are empty. Please fill up all fields');
-			 } else{
+			 } else if (isNaN( $('#century').val())) {
+				 alert("Only numbers allowed in century field");
+			} else {
 				 updateSaint(id);
-			 }
+			}
 	 });
+	  
 	  $('#editTableForm').on("click",'#description', function(e){
 		 $('#descriptionChars').text("Max 250 characters allowed");
 	 })
