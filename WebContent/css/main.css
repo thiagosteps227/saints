@@ -7,6 +7,7 @@ body{margin:20px;}
 h1{
 	color: #008000;
 }
+
 #saints {
 	width: 900px;
 	margin: 0 auto; 
@@ -15,12 +16,12 @@ h1{
 	box-shadow: 0 9px 18px 9px;
 }
 
-
-span{
+i{
 	font-size:60px;
 	color:#eeee00;
 	margin: 5px;
 }
+
 li{ padding-right:20px;
 	font-size:150%;
 	
@@ -40,21 +41,29 @@ input{
   margin-top:5px;
   width:280px;
 }
+
+#editTableForm span{
+	color:red;
+}
+
 #updateSaintBtn{
 	margin: 5px;
 }
+
 .form-control {
 	overflow-wrap: break-word
 }
 #description{
 	height: 200px;
 }
+
 .container .col {
 	background-color: #ffffbf;
 	padding: 10px;
 	margin:5px;
 	border-radius: 25px;
 	float: center;
+	
 }
 .container img{
 	height: 256px;
@@ -75,9 +84,10 @@ input{
 	margin: auto;
 }
 
-
 label {
 	display:block;
 }
 
-.nav{margin:20px;}
+.nav{
+	margin:20px;
+}
