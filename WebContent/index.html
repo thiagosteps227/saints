@@ -14,10 +14,16 @@
 <body>
     <h1>My Favourite Saints</h1>
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
+    <ul id="navbar" class="nav nav-tabs" role="tablist">
         <li class="active"><a href="#home" role="tab" data-toggle="tab"><i class="fa fa-home"></i>Home</a></li>
         <li><a href="#saints" role="tab" data-toggle="tab"><i class="fa fa-list"></i>Saints</a></li>
         <li><a href="#other" role="tab" data-toggle="tab"><i class="fa fa-cog"></i>Admin</a></li>
+        <li id="googleBar"><a class="navbar-brand"></a>
+	        <form id="formGoogleSearch" class="form-inline" action="https://www.google.com/search" method="get">
+	        	<input id="googleInput"class="form-control mr-sm-2" type="search" placeholder="Search more Catholic Saints" aria-label="Search" name="q">
+	        	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	        </form>
+        </li>
      </ul>
 <!-- Tab panes -->
 <div class="tab-content">
@@ -156,7 +162,7 @@
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label">Description</label>
 					<div class="col-sm-10">
-						<textarea name="description" class="form-control" id="createdescription" placeholder="Description"></textarea>
+						<textarea name="description" class="form-control" id="createdescription" placeholder="Max length 250 characters" maxlength="250"></textarea>
 						<span id="createChars"></span>
 					</div>
 				</div>
@@ -182,5 +188,6 @@
    </div>   
   </div>
 </div>
+<footer>&copy; HDIP2021</footer>
 </body>
 </html>
