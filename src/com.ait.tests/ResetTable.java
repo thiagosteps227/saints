@@ -103,5 +103,39 @@ public class ResetTable {
 				+ "Portugal, and died in Padua, Italy");
 		dao.create(stAnt);
 		
+		Saints stThomas = new Saints();
+		stThomas.setName("Saint Thomas Aquinas");
+		stThomas.setCountry("Italy");
+		stThomas.setCity("Aquino");
+		stThomas.setCentury(13);
+		stThomas.setPicture("stthomasaquinas.jpg");
+		stThomas.setDescription("Italian Dominican theologian, the foremost medieval Scholastic. "
+				+ "He developed his own conclusions from Aristotelian premises. As a theologian, "
+				+ "he was responsible in his two masterpieces: the Summa theologiae and the Summa "
+				+ "contra gentiles.");
+		dao.create(stThomas);
+		
+		Saints stAugus = new Saints();
+		stAugus.setName("Saint Augustine");
+		stAugus.setCountry("Algeria");
+		stAugus.setCity("Hippo");
+		stAugus.setCentury(4);
+		stAugus.setPicture("staugustine.jpg");
+		stAugus.setDescription("Bishop of Hippo, one of the Latin Fathers of the Church and perhaps "
+				+ "the most significant Christian thinker after St. Paul. Augustine’s adaptation of "
+				+ "classical thought to Christian teaching created a theological system of great power.");
+		dao.create(stAugus);
+		
+		Saints stCathe = new Saints();
+		stCathe.setName("Saint Catherine");
+		stCathe.setCountry("Italia");
+		stCathe.setCity("Siena");
+		stCathe.setCentury(4);
+		stCathe.setPicture("stcatherine.jpg");
+		stCathe.setDescription("Catherine was the youngest of 25 children born to a lower middle-class "
+				+ "family. At a young age she is said to have consecrated her virginity to Christ and "
+				+ "experienced mystical visions. Catherine is member of the Dominican Order.");
+		dao.create(stCathe);
+		
 	}
 }
