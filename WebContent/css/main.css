@@ -2,7 +2,9 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-body{margin:20px;}
+body {
+	margin:20px;
+}
 
 h1{
 	color: #008000;
@@ -22,11 +24,24 @@ i{
 	margin: 5px;
 }
 
-li{ padding-right:20px;
+#googleBar{
+	flex-direction: row;
+	display: flex;
+	float: right;
+	margin-left: auto;
+	margin-bottom: 5px;
+}
+
+#googleInput{
+	width:500px
+}
+
+li { padding-right:20px;
 	font-size:150%;
 	
 }
-a{
+
+a {
 	color: purple;
 }
 	
@@ -90,4 +105,12 @@ label {
 
 .nav{
 	margin:20px;
+}
+
+footer{
+	padding: 15px;
+	font-size:90%;
+	text-align: center;
+	border-top: 2px solid #c0c0c0;
+	color: #008000;
 }
