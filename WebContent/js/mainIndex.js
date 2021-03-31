@@ -135,8 +135,7 @@ var createFormToJSON = function (){
 var renderGrid = function(list){
 	 $('#saintsGrid div ').remove();
 	$.each(list, function(index, saint){
-		$('#saintsGrid').append("<div class='col'><img src=images/"+saint.picture+"><h4>"+saint.name+"</h4><p class='text-break'>"+saint.description+"</p></div>");
-		        			
+		$('#saintsGrid').append("<div class='col'><img src=images/"+saint.picture+"><h4>"+saint.name+"</h4><p class='text-break'>"+saint.description+"</p></div>");		        			
 	});
 }
 
@@ -189,8 +188,17 @@ var validateUpdateForm = function() {
 //Retrieve the saints list when the DOM is ready
 $(document).ready(function(){
 	  findAllGrid();
+	  $('#formGoogleSearch').on("click", '#googleInput', function(e){
+		  e.preventDefault();
+		  $('#googleInput').val("");
+		  $('footer').show();
+		  
+	  } )
+	  
+	  //show the grid with the saints in the home page
     $('.nav-tabs a[href="#home"]').click(function (e) {
          e.preventDefault();
+         $('footer').hide();
          findAllGrid();
          $(this).tab('show');
      });
@@ -198,6 +206,7 @@ $(document).ready(function(){
 	//show datable with saints info
 	 $('.nav-tabs a[href="#saints"]').click(function (e) {
          e.preventDefault();
+         $('footer').hide();
          findAll();
          $(this).tab('show');
      });
@@ -206,6 +215,7 @@ $(document).ready(function(){
 	 $('#table_id').on("click", '#editBtn', function (e) {
          e.preventDefault();
          $('#editSaintModal').modal('show');
+         $('footer').hide();
          var id = event.target.name;
          findById(id);
      });
@@ -213,12 +223,14 @@ $(document).ready(function(){
 	//show saints details in the modal
 	 $('#modalBtn').click(function (e) {
           e.preventDefault();
+          $('footer').hide();
           $('#myModal').modal('show');
       });
 	
 	 //add new Saint in the modal
 	  $('#createForm').on("click",'#addNewSaintBtn', function(e){
 		 e.preventDefault();
+		 $('footer').hide();
 			 if(validateForm()=== true){
 					alert('One or Two fields are empty. Please fill up all fields');
 			} else if (isNaN($('#createcentury').val())) {
@@ -236,6 +248,7 @@ $(document).ready(function(){
 	 //update a saint
 	  $('#editTableForm').on("click",'#updateSaintBtn', function(e){
 		 e.preventDefault();
+		 $('footer').hide();
 		 var id = $('#saintId').val();
 			 if(validateUpdateForm () === true){
 				 alert('One or Two fields are empty. Please fill up all fields');
