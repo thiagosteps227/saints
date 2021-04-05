@@ -49,11 +49,10 @@ var addNewSaint = function(){
 			cleanCreateModalForm();
 		},
 		error: function(jqXHR, textStatus, errorThrown){
-			var errorString = JSON.stringify(jqXHR.responseText)
+			var errorString = jqXHR.responseText;
 			if( jqXHR.status === 403){
 				alert(errorString);
 			}
-			
 		}
 	});
 };
@@ -72,7 +71,11 @@ var updateSaint= function (id) {
 			openModal(currentSaint);	
 		},
 		error: function(jqXHR, textStatus, errorThrown){
-			alert('Updating Saint error: ' + textStatus);
+			//alert('Updating Saint error: ' + textStatus);
+			var errorString = jqXHR.responseText;
+			if( jqXHR.status === 403){
+				alert(errorString);
+			}
 		}
 	});
 };
@@ -254,7 +257,10 @@ $(document).ready(function(){
 				 alert('One or Two fields are empty. Please fill up all fields');
 			 } else if (isNaN( $('#century').val())) {
 				 alert("Only numbers allowed in century field");
-			} else {
+			} else if ($('#century').val() < 0 || $('#century').val() > 21) {
+				alert("Type a valid century between 1 and 21");
+			}
+			 else {
 				 updateSaint(id);
 			}
 	 });
